@@ -1,5 +1,6 @@
 import WebsiteFeaturesSection from "./components/Aboutsection";
 import FooterSection from "./components/FooterSection";
+import Header from "./components/Header";
 import HeroSection from "./components/Herosection";
 import SolutionsSection from "./components/InternshipSection";
 import GrowBusinessSection from "./components/JobPlacementSection";
@@ -19,6 +20,7 @@ const App = () => {
         a { cursor: pointer; }
       `}</style>
 
+<Header/>
       <HeroSection />
       <TrustedBrandsSection />
       <SolutionsSection />

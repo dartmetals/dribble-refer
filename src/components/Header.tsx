@@ -1,157 +1,103 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, ArrowUp } from 'lucide-react';
+// Header.jsx
+import { useEffect, useState } from 'react';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  //   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Graduate Internship', href: '/internship' },
-    { name: 'Career', href: '/career' },
-    { name: 'Stories', href: '/stories' },
-  ];
-
-  // Handle scroll event to detect when page is scrolled
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-      
-      // Show scroll to top button after scrolling 300px
-      if (window.scrollY > 300) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const fn = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', fn);
+    return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    document.body.style.overflow = '';
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <>
-      <header className={`absolute top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ?'bg-transparent backdrop-blur-0 border-b border-transparent'
-          : 'bg-transparent backdrop-blur-0 border-b border-transparent'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <a href="/" className="flex items-center space-x-2 group">
-                <img 
-                  src="/da-logo2.png" 
-                  alt="Data Artisans Logo" 
-                  className="w-48 h-20 md:w-60 md:h-16 object-contain"
-                />
-                {/* <span className="text-white font-bold text-xl md:text-2xl tracking-tight">
-                  Data<span className="text-[#00D4FF]">Artisans</span>
-                </span> */}
-              </a>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`px-3 py-2 text-sm lg:text-base font-medium transition-all duration-200 rounded-lg ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-[#0066FF] hover:bg-[#00D4FF]/10' 
-                      : 'text-blue-600 hover:text-[#00D4FF] hover:bg-white/10'
-                  }`}
-                >
-                  {link.name}
-                </a>
-              ))}
-            </nav>
-
-            {/* Register Button - Desktop - Made smaller */}
-            <div className="hidden md:block">
-              <button className={`px-3 py-1.5 text-lg bg-gradient-to-r from-[#00D4FF] to-[#0066FF] text-white font-medium rounded-full hover:shadow-md hover:shadow-[#00D4FF]/30 transition-all duration-300 transform hover:scale-105 flex items-center gap-1.5 ${
-                !isScrolled && 'shadow-md'
-              }`}>
-                Get in touch
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={toggleMenu}
-              className={`md:hidden p-2 rounded-lg transition-colors ${
-                isScrolled 
-                  ? 'text-gray-700 hover:text-[#0066FF] hover:bg-[#00D4FF]/10' 
-                  : 'text-white hover:text-[#00D4FF] hover:bg-white/10'
-              }`}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+    <nav style={{
+      position: 'absolute',
+      top: 0, left: 0, right: 0, zIndex: 100,
+      background: 'transparent',  // Always transparent, no background color
+      backdropFilter: 'none',     // No blur effect
+      borderBottom: 'none',       // No border
+      transition: 'all 0.3s',
+      padding: '0 48px', 
+      height: 68,
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'space-between',
+    }}>
+      {/* Logo with Image */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        {/* Logo Image - Replace the src with your actual logo path */}
+        <img 
+          src="/da-logo2.png"  // Change this to your actual logo path
+          alt="Logo"
+          style={{
+            width: 236, height: 76, borderRadius: 1,
+            objectFit: 'contain'
+          }}
+          onError={(e) => {
+            // Fallback to gradient box if image fails to load
+            e.target.style.display = 'none';
+            e.target.nextSibling.style.display = 'flex';
+          }}
+        />
+        {/* Fallback gradient box */}
+        <div style={{
+          width: 36, height: 36, borderRadius: 10,
+          background: 'linear-gradient(135deg,#5b63f8,#4048e8)',
+          display: 'none', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="3" y="3" width="6" height="6" rx="1.5" fill="white" />
+            <rect x="11" y="3" width="6" height="6" rx="1.5" fill="white" opacity="0.7" />
+            <rect x="3" y="11" width="6" height="6" rx="1.5" fill="white" opacity="0.7" />
+            <rect x="11" y="11" width="6" height="6" rx="1.5" fill="white" opacity="0.4" />
+          </svg>
         </div>
+        {/* <span style={{ fontWeight: 700, fontSize: 18, color: '#0f172a', letterSpacing: '-0.02em' }}>HUSD</span> */}
+      </div>
 
-        {/* Mobile Navigation Menu - Fixed background and positioning */}
-        {isMenuOpen && (
-          <div className="fixed inset-0 top-16 md:hidden bg-white shadow-lg z-40">
-            <div className="flex flex-col h-full overflow-y-auto">
-              <nav className="flex flex-col p-6 space-y-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={closeMenu}
-                    className="px-4 py-3 text-lg font-medium rounded-xl transition-all duration-200 text-gray-800 hover:text-[#0066FF] hover:bg-gray-100"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <div className="pt-4 mt-2 border-t border-gray-200">
-                  <button className="w-full px-3 py-1.5 text-sm bg-gradient-to-r from-[#00D4FF] to-[#0066FF] text-white font-medium rounded-full transition-all duration-300 flex items-center justify-center gap-1.5">
-                    Get in touch
-                  </button>
-                </div>
-              </nav>
-            </div>
-          </div>
-        )}
-      </header>
+      {/* Nav Links */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+        {['Home', 'Trainings', 'Internships', 'Job Placements', 'Abroad Study', 'About Us', 'Contact Us'].map((l) => (
+          <a 
+            key={l} 
+            href={`#${l.toLowerCase().replace(/\s+/g, '-')}`}
+            style={{
+              fontSize: 14, color: '#334155', textDecoration: 'none',
+              fontWeight: 500, transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#5b63f8')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#334155')}
+          >
+            {l}
+          </a>
+        ))}
+      </div>
 
-      {/* Scroll to Top Button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-3 bg-gradient-to-r from-[#00D4FF] to-[#0066FF] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 focus:outline-none"
-          aria-label="Scroll to top"
+      {/* Right - Get In Touch Button */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        <span style={{ fontSize: 14, color: '#334155', fontWeight: 500, cursor: 'pointer' }}>
+         
+        </span>
+        <button style={{
+          border: '1.5px solid #0f172a', background: 'transparent',
+          color: '#0f172a', borderRadius: 8,
+          padding: '9px 20px', fontSize: 14, fontWeight: 600,
+          cursor: 'pointer', transition: 'all 0.2s',
+        }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = '#0f172a';
+            e.currentTarget.style.color = '#fff';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.color = '#0f172a';
+          }}
         >
-          <ArrowUp size={24} />
+          Get In Touch
         </button>
-      )}
-    </>
+      </div>
+    </nav>
   );
 };
 
