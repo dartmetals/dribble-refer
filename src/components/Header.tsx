@@ -1,8 +1,8 @@
-// Header.jsx
+// Header.tsx
 import { useEffect, useState } from 'react';
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const [_scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -34,10 +34,13 @@ const Header = () => {
             width: 236, height: 76, borderRadius: 1,
             objectFit: 'contain'
           }}
-          onError={(e) => {
+          onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+            const target = e.currentTarget;
             // Fallback to gradient box if image fails to load
-            e.target.style.display = 'none';
-            e.target.nextSibling.style.display = 'flex';
+            target.style.display = 'none';
+            if (target.nextSibling) {
+              (target.nextSibling as HTMLElement).style.display = 'flex';
+            }
           }}
         />
         {/* Fallback gradient box */}
@@ -66,8 +69,8 @@ const Header = () => {
               fontSize: 14, color: '#334155', textDecoration: 'none',
               fontWeight: 500, transition: 'color 0.2s',
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#5b63f8')}
-            onMouseLeave={e => (e.currentTarget.style.color = '#334155')}
+            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = '#5b63f8')}
+            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = '#334155')}
           >
             {l}
           </a>
@@ -85,11 +88,11 @@ const Header = () => {
           padding: '9px 20px', fontSize: 14, fontWeight: 600,
           cursor: 'pointer', transition: 'all 0.2s',
         }}
-          onMouseEnter={e => {
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.currentTarget.style.background = '#0f172a';
             e.currentTarget.style.color = '#fff';
           }}
-          onMouseLeave={e => {
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.currentTarget.style.background = 'transparent';
             e.currentTarget.style.color = '#0f172a';
           }}
