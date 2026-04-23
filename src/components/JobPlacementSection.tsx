@@ -25,6 +25,7 @@ const GrowBusinessSection = () => {
             overflow: 'hidden',
             minHeight: 220,
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -78,25 +79,46 @@ const GrowBusinessSection = () => {
             </div>
           </div>
 
-          {/* Text */}
+          {/* Title Text */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.35 }}
             style={{
-              fontFamily: "'Courier New', 'Courier', monospace",
+              fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: 28, fontWeight: 700,
               color: '#fff',
               textAlign: 'center',
               lineHeight: 1.5,
               position: 'relative', zIndex: 2,
               letterSpacing: '-0.01em',
-              maxWidth: 420,
+              maxWidth: 650,
+              marginBottom: 20,
             }}
           >
-            We are here to help<br />
-            you grow your online<br />
-            business
+            Comprehensive Job Placement Support
+          </motion.p>
+
+          {/* Paragraph inside the blur border radius card */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.45 }}
+            style={{
+              fontSize: 15,
+              color: 'rgba(255,255,255,0.9)',
+              textAlign: 'center',
+              lineHeight: 1.7,
+              position: 'relative',
+              zIndex: 2,
+              maxWidth: 800,
+              margin: '0 auto',
+            }}
+          >
+            We provide complete job placement support to help you land your dream role. Our team will work 
+            closely with you to prepare a professional CV that highlights your skills, projects, and unique 
+            strengths. We'll ensure your resume stands out to potential employers and effectively showcases 
+            everything you've learned during your training and internship.
           </motion.p>
         </motion.div>
       </div>

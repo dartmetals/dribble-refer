@@ -10,133 +10,151 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    id: 'ai',
+    id: 'training',
     icon: (
       <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg,#fbbf24,#f59e0b)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 2v4M8 10v4M2 8h4M10 8h4M4.5 4.5l2.8 2.8M8.7 8.7l2.8 2.8M4.5 11.5l2.8-2.8M8.7 7.3l2.8-2.8" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+          <path d="M2 4h12M2 8h12M2 12h8" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+          <circle cx="12" cy="12" r="2" stroke="white" strokeWidth="1.4" />
         </svg>
       </div>
     ),
-    title: 'Ai optimization',
-    content: 'Our AI-powered engine automatically optimizes your website for performance, SEO, and conversions — adapting in real time to user behavior.',
+    title: 'Industry-Focused Training',
+    content: 'We provide job-oriented training programs designed specifically for UK master\'s graduates. Our curriculum is developed in collaboration with industry experts to ensure you learn the most in-demand skills.',
   },
   {
-    id: 'code',
+    id: 'internship',
     icon: (
       <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg,#3b82f6,#2563eb)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M5 4L1 8l4 4M11 4l4 4-4 4M9 2l-2 12" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M3 3h10v10H3z" stroke="white" strokeWidth="1.4" fill="none" />
+          <path d="M6 7l2 2 4-4" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
         </svg>
       </div>
     ),
-    title: 'Code Module',
-    content: 'Embed custom HTML, CSS and JavaScript anywhere on your site without leaving the builder. Full developer freedom inside a no-code environment.',
+    title: 'Hands-On Internships',
+    content: 'Gain real-world experience through our internship programs. Work on live projects, collaborate with industry professionals, and build a portfolio that showcases your practical skills.',
   },
   {
-    id: 'drag',
+    id: 'placement',
     icon: (
       <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg,#ec4899,#db2777)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <rect x="2" y="2" width="5" height="5" rx="1" fill="white" opacity="0.9" />
-          <rect x="9" y="2" width="5" height="5" rx="1" fill="white" opacity="0.6" />
-          <rect x="2" y="9" width="5" height="5" rx="1" fill="white" opacity="0.6" />
-          <rect x="9" y="9" width="5" height="5" rx="1" fill="white" opacity="0.3" />
+          <circle cx="8" cy="5" r="2" stroke="white" strokeWidth="1.4" />
+          <path d="M4 13v-2c0-1.5 1-3 4-3s4 1.5 4 3v2" stroke="white" strokeWidth="1.4" />
+          <path d="M12 2l2 2-2 2M4 2l-2 2 2 2" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
         </svg>
       </div>
     ),
-    title: 'Drag and Drop',
-    content: 'Build and rearrange your entire website visually. Drag any element — blocks, images, text, forms — and drop it exactly where you want it.',
+    title: 'Job Placement Support',
+    content: 'We prepare you for interviews, help craft professional CVs, conduct mock interviews, and connect you with top employers. Our guidance continues until you successfully land your dream job.',
+  },
+  {
+    id: 'abroad',
+    icon: (
+      <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg,#10b981,#059669)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="6" stroke="white" strokeWidth="1.4" />
+          <path d="M8 2v12M2 8h12" stroke="white" strokeWidth="1.4" />
+          <circle cx="8" cy="8" r="2" fill="white" />
+        </svg>
+      </div>
+    ),
+    title: 'Abroad Study & Visa Support',
+    content: 'Complete assistance for studying abroad — from university selection and visa processing to accommodation setup and part-time job guidance. We support you before, during, and after your move.',
   },
 ];
 
-/* ── UI Mockup: PLACE design tool ── */
-const PlaceMockup = () => (
-  <div style={{
-    width: '100%', maxWidth: 380,
-    borderRadius: 20, overflow: 'hidden',
-    boxShadow: '0 24px 64px rgba(91,99,248,0.22)',
-    position: 'relative',
-  }}>
-    {/* Dark sidebar */}
+/* ── YouTube Thumbnail with Play Button ── */
+const YouTubeVideo = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
     <div style={{
-      display: 'flex', height: 340,
+      width: '100%',
+      borderRadius: 24,
+      overflow: 'hidden',
+      boxShadow: '0 24px 48px rgba(91,99,248,0.15)',
+      position: 'relative',
+      aspectRatio: '16/9',
+      cursor: 'pointer',
+      background: '#000',
     }}>
-      <div style={{
-        width: 100, background: '#1e293b',
-        padding: '24px 16px',
-        display: 'flex', flexDirection: 'column', gap: 6,
-      }}>
-        <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginBottom: 14, letterSpacing: '0.1em' }}>
-          PLACE
-        </div>
-        {['Design','All Screens','Neutral','Settings','Settings'].map((item, i) => (
-          <div key={i} style={{
-            padding: '7px 10px', borderRadius: 6,
-            background: i === 0 ? 'rgba(91,99,248,0.25)' : 'transparent',
-            fontSize: 11, color: i === 0 ? '#a5b4fc' : '#64748b',
-            cursor: 'pointer',
-          }}>
-            {item}
-          </div>
-        ))}
-      </div>
-
-      {/* Main content area */}
-      <div style={{
-        flex: 1, background: '#f8fafc',
-        padding: '20px 16px',
-      }}>
-        <div style={{ fontSize: 18, fontWeight: 700, color: '#0f172a', marginBottom: 14 }}>Card</div>
-
-        {/* Product card preview */}
-        <div style={{
-          background: '#fff', borderRadius: 12,
-          overflow: 'hidden',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-        }}>
-          {/* Gradient image area */}
-          <div style={{
-            height: 120,
-            background: 'linear-gradient(135deg, #fde68a 0%, #fbbf24 40%, #f59e0b 70%, #fb923c 100%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
+      {!isPlaying ? (
+        <div 
+          onClick={() => setIsPlaying(true)}
+          style={{
             position: 'relative',
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          {/* YouTube Thumbnail */}
+          <img 
+            src="https://img.youtube.com/vi/H8QqGZmG6PY/maxresdefault.jpg"
+            alt="Video thumbnail"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+          {/* Play Button Overlay */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0,0,0,0.3)',
+            transition: 'background 0.3s ease',
           }}>
-            {/* 3D shapes */}
-            <svg width="100" height="80" viewBox="0 0 100 80" fill="none">
-              {/* Left cube */}
-              <polygon points="10,50 30,40 50,50 30,60" fill="#fb923c" opacity="0.9" />
-              <polygon points="10,50 10,65 30,75 30,60" fill="#ea580c" />
-              <polygon points="30,60 30,75 50,65 50,50" fill="#f97316" />
-              {/* Middle cube */}
-              <polygon points="35,35 55,25 75,35 55,45" fill="#fbbf24" opacity="0.9" />
-              <polygon points="35,35 35,50 55,60 55,45" fill="#f59e0b" />
-              <polygon points="55,45 55,60 75,50 75,35" fill="#d97706" />
-              {/* Right cube */}
-              <polygon points="60,52 75,44 90,52 75,60" fill="#fb923c" opacity="0.8" />
-              <polygon points="60,52 60,64 75,72 75,60" fill="#ea580c" opacity="0.8" />
-              <polygon points="75,60 75,72 90,64 90,52" fill="#f97316" opacity="0.8" />
-            </svg>
-          </div>
-
-          <div style={{ padding: '14px 14px 16px' }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>
-              Website Design Features
-            </div>
-            <div style={{ fontSize: 11, color: '#64748b', lineHeight: 1.55 }}>
-              Bookmark is equipped with the tools and features you need to build your ultimate website or eCommerce store.
+            <div style={{
+              width: 80,
+              height: 80,
+              borderRadius: '50%',
+              background: 'rgba(255,0,0,0.9)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'transform 0.3s ease',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+            }}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                <path d="M8 5v14l11-7z" fill="white" />
+              </svg>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/H8QqGZmG6PY?autoplay=1"
+          title="YouTube video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 const WebsiteFeaturesSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
-  const [openId, setOpenId] = useState<string | null>('ai');
+  const [openId, setOpenId] = useState<string | null>('training');
 
   return (
     <section style={{
@@ -145,9 +163,9 @@ const WebsiteFeaturesSection = () => {
       fontFamily: "'Inter', system-ui, sans-serif",
     }}>
       <div ref={ref} style={{
-        maxWidth: 1100, margin: '0 auto',
+        maxWidth: 1200, margin: '0 auto',
         display: 'grid', gridTemplateColumns: '1fr 1fr',
-        gap: 80, alignItems: 'center',
+        gap: 60, alignItems: 'center',
       }}>
 
         {/* LEFT: Content slides in from LEFT */}
@@ -159,10 +177,20 @@ const WebsiteFeaturesSection = () => {
           <h2 style={{
             fontSize: 40, fontWeight: 800,
             color: '#0f172a', letterSpacing: '-0.03em',
-            lineHeight: 1.2, marginBottom: 40,
+            lineHeight: 1.2, marginBottom: 16,
           }}>
-            Website features
+            About Data Artisans
           </h2>
+          
+          <p style={{
+            fontSize: 15,
+            color: '#64748b',
+            lineHeight: 1.6,
+            marginBottom: 32,
+          }}>
+            We bridge the gap between ambition and industry by providing world-class training, 
+            guaranteed placements, and global education pathways tailored for the UK market.
+          </p>
 
           {/* Accordion */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
@@ -175,11 +203,11 @@ const WebsiteFeaturesSection = () => {
                 <motion.div
                   initial={{ opacity: 0, x: -40 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.1 + i * 0.12 }}
+                  transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
                   onClick={() => setOpenId(openId === f.id ? null : f.id)}
                   style={{
                     display: 'flex', alignItems: 'center',
-                    gap: 16, padding: '20px 0',
+                    gap: 16, padding: '18px 0',
                     cursor: 'pointer',
                   }}
                 >
@@ -228,14 +256,14 @@ const WebsiteFeaturesSection = () => {
           </div>
         </motion.div>
 
-        {/* RIGHT: Image slides in from RIGHT */}
+        {/* RIGHT: YouTube Thumbnail with Play Button */}
         <motion.div
           initial={{ opacity: 0, x: 80 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.85, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
           style={{ display: 'flex', justifyContent: 'center' }}
         >
-          <PlaceMockup />
+          <YouTubeVideo />
         </motion.div>
       </div>
     </section>

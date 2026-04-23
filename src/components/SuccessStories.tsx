@@ -1,23 +1,23 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const ActNowSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  // const [email, setEmail] = useState('');
+  // const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
-    if (!email.includes('@')) return;
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3500);
-    setEmail('');
-  };
+  // const handleSubmit = () => {
+  //   if (!email.includes('@')) return;
+  //   setSubmitted(true);
+  //   setTimeout(() => setSubmitted(false), 3500);
+  //   setEmail('');
+  // };
 
   return (
     <section style={{
       background: '#eef0ff',
-      padding: '60px 48px 80px',
+      padding: '10px 48px 80px',
       fontFamily: "'Inter', system-ui, sans-serif",
     }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
@@ -72,14 +72,74 @@ const ActNowSection = () => {
               fontSize: 38, fontWeight: 800,
               color: '#fff', textAlign: 'center',
               letterSpacing: '-0.03em', lineHeight: 1.25,
-              marginBottom: 36, position: 'relative', zIndex: 2,
+              marginBottom: 16, position: 'relative', zIndex: 2,
             }}
           >
-            Act now, using our<br />opportunities
+            Ready to Launch Your Career?
           </motion.h2>
 
-          {/* Email form */}
-          <motion.div
+          {/* Paragraph */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.35 }}
+            style={{
+              fontSize: 16,
+              color: 'rgba(255,255,255,0.9)',
+              textAlign: 'center',
+              maxWidth: 550,
+              marginBottom: 32,
+              lineHeight: 1.6,
+              position: 'relative',
+              zIndex: 2,
+            }}
+          >
+            Join thousands of successful graduates who transformed their careers with our training, 
+            internships, and job placement support. Your journey to success starts here.
+          </motion.p>
+
+          {/* Button */}
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.45 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => window.location.href = '/contact'}
+            style={{
+              background: '#fff',
+              color: '#5b63f8',
+              border: 'none',
+              borderRadius: 12,
+              padding: '14px 36px',
+              fontSize: 16,
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              position: 'relative',
+              zIndex: 2,
+              boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = '#f8fafc';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = '#fff';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            Get Started Today
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M3 9h12M10 4l5 5-5 5" stroke="#5b63f8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.button>
+
+          {/* Email form (commented - kept for reference but not visible) */}
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.65, delay: 0.42 }}
@@ -126,7 +186,7 @@ const ActNowSection = () => {
                 </svg>
               )}
             </button>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
     </section>

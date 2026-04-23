@@ -2,39 +2,54 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 interface CardData {
-  icon: React.ReactNode;
+  flag: string;
+  country: string;
+  flagCode: string;
   title: string;
   desc: string;
   variant: 'blue' | 'white';
   decoration?: React.ReactNode;
 }
 
-const OrangeIcon = ({ icon }: { icon: string }) => (
+const CountryFlag = ({ country, flagCode }: { country: string; flagCode: string }) => (
   <div style={{
-    width: 48, height: 48, borderRadius: '50%',
-    background: 'linear-gradient(135deg, #ffb156, #ff8c42)',
+    width: 60, height: 60, borderRadius: '50%',
+    background: '#fff',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    marginBottom: 20, fontSize: 20,
-    boxShadow: '0 4px 16px rgba(255,140,66,0.35)',
+    marginBottom: 20, fontSize: 32,
+    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+    border: '2px solid #e2e8f0',
   }}>
-    {icon}
+    <img 
+      src={`https://flagcdn.com/${flagCode}.svg`}
+      alt={`${country} flag`}
+      style={{
+        width: 40,
+        height: 40,
+        borderRadius: '50%',
+        objectFit: 'cover',
+      }}
+      onError={(e) => {
+        (e.target as HTMLImageElement).style.display = 'none';
+      }}
+    />
   </div>
 );
 
-const BlueIcon = () => (
-  <div style={{
-    width: 48, height: 48, borderRadius: '50%',
-    background: 'rgba(255,255,255,0.25)',
-    border: '2px solid rgba(255,255,255,0.5)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    marginBottom: 20,
-  }}>
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-      <circle cx="11" cy="11" r="8" stroke="white" strokeWidth="2" fill="none" />
-      <circle cx="11" cy="11" r="3" fill="white" />
-    </svg>
-  </div>
-);
+// const BlueIcon = () => (
+//   <div style={{
+//     width: 48, height: 48, borderRadius: '50%',
+//     background: 'rgba(255,255,255,0.25)',
+//     border: '2px solid rgba(255,255,255,0.5)',
+//     display: 'flex', alignItems: 'center', justifyContent: 'center',
+//     marginBottom: 20,
+//   }}>
+//     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+//       <circle cx="11" cy="11" r="8" stroke="white" strokeWidth="2" fill="none" />
+//       <circle cx="11" cy="11" r="3" fill="white" />
+//     </svg>
+//   </div>
+// );
 
 /* Decorative 3D book shape (top right of community card) */
 const BookDecoration = () => (
@@ -63,22 +78,28 @@ const CubeDecoration = () => (
 
 const cards: CardData[] = [
   {
-    icon: <BlueIcon />,
-    title: 'Educational Insights',
-    desc: 'Our courses are developed in collaboration with industry leaders.',
+    flag: "🇬🇧",
+    country: "United Kingdom",
+    flagCode: "gb",
+    title: "Study in UK",
+    desc: "World-class education at top universities. Complete guidance for applications, student visas, and university selection tailored to your profile.",
     variant: 'blue',
   },
   {
-    icon: <OrangeIcon icon="⚡" />,
-    title: 'Website Analytics',
-    desc: 'You get full information about the visitors and users of your site.',
+    flag: "🇨🇦",
+    country: "Canada",
+    flagCode: "ca",
+    title: "Study in Canada",
+    desc: "Affordable education with excellent post-study work opportunities. We help you with college selection, visa process, and settlement support.",
     variant: 'white',
     decoration: <BookDecoration />,
   },
   {
-    icon: <OrangeIcon icon="🔗" />,
-    title: 'Community Forum',
-    desc: 'Expand your knowledge and learn from the experiences of other users.',
+    flag: "🇦🇺",
+    country: "Australia",
+    flagCode: "au",
+    title: "Study in Australia",
+    desc: "Quality education in a multicultural environment. Complete assistance with university applications, scholarships, and visa processing.",
     variant: 'white',
     decoration: <CubeDecoration />,
   },
@@ -106,29 +127,46 @@ const SpeedyDigitalSection = () => {
             fontSize: 44, fontWeight: 800,
             color: '#0f172a', letterSpacing: '-0.03em',
             lineHeight: 1.2, textAlign: 'center',
-            marginBottom: 56,
+            marginBottom: 24,
           }}
         >
-          Speedy digital<br />experience creation.
+          Your Global Education Partner
         </motion.h2>
 
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          style={{
+            fontSize: 16,
+            color: '#64748b',
+            textAlign: 'center',
+            maxWidth: 700,
+            margin: '0 auto 56px auto',
+            lineHeight: 1.6,
+          }}
+        >
+          Complete support for your abroad journey — from visa assistance to post-arrival settlement.
+          Our dedicated team guides you every step of the way.
+        </motion.p>
+
         {/* Cards — appear one by one with stagger */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
               initial={{ opacity: 0, y: 60, scale: 0.94 }}
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              /* Each card waits for the previous one to finish before appearing */
               transition={{
                 duration: 0.65,
-                delay: 0.2 + i * 0.22,   /* 0.2s, 0.42s, 0.64s */
+                delay: 0.2 + i * 0.22,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              whileHover={{ y: -8, transition: { duration: 0.25 } }}
               style={{
-                borderRadius: 20,
-                padding: '32px 28px 40px',
+                borderRadius: 24,
+                padding: '32px 28px 36px',
                 position: 'relative',
                 overflow: 'hidden',
                 cursor: 'pointer',
@@ -146,10 +184,11 @@ const SpeedyDigitalSection = () => {
             >
               {card.decoration}
 
-              {card.icon}
+              {/* Country Flag */}
+              <CountryFlag country={card.country} flagCode={card.flagCode} />
 
               <h3 style={{
-                fontSize: 18, fontWeight: 700,
+                fontSize: 22, fontWeight: 700,
                 color: card.variant === 'blue' ? '#fff' : '#0f172a',
                 marginBottom: 12, lineHeight: 1.3,
               }}>
@@ -158,8 +197,8 @@ const SpeedyDigitalSection = () => {
 
               <p style={{
                 fontSize: 14, lineHeight: 1.65,
-                color: card.variant === 'blue' ? 'rgba(255,255,255,0.8)' : '#64748b',
-                marginBottom: 28,
+                color: card.variant === 'blue' ? 'rgba(255,255,255,0.85)' : '#64748b',
+                marginBottom: 20,
               }}>
                 {card.desc}
               </p>
@@ -172,7 +211,7 @@ const SpeedyDigitalSection = () => {
                   borderBottom: `1.5px solid ${card.variant === 'blue' ? 'rgba(255,255,255,0.5)' : '#5b63f8'}`,
                   paddingBottom: 1,
                 }}>
-                  Learn more
+                  Explore {card.country}
                 </span>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M3 8h10M9 4l4 4-4 4"
@@ -183,6 +222,41 @@ const SpeedyDigitalSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Additional Support Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.8 }}
+          style={{
+            marginTop: 60,
+            padding: '32px 40px',
+            background: '#fff',
+            borderRadius: 20,
+            textAlign: 'center',
+            border: '1px solid #e2e8f0',
+          }}
+        >
+          <h3 style={{
+            fontSize: 20,
+            fontWeight: 700,
+            color: '#0f172a',
+            marginBottom: 16,
+          }}>
+            We're With You Every Step of the Way
+          </h3>
+          <p style={{
+            fontSize: 15,
+            color: '#475569',
+            lineHeight: 1.7,
+            maxWidth: 800,
+            margin: '0 auto',
+          }}>
+            From visa guidance and university applications to accommodation setup and part-time job assistance — 
+            our team supports you before, during, and after your move abroad. We'll be there until you're 
+            completely settled and thriving in your new country.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
