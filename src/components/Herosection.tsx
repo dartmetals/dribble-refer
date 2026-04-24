@@ -147,8 +147,7 @@
 
 
 
-
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
 /* Shared base styles for every image */
@@ -163,54 +162,61 @@ const base = (w: number, h: number) => ({
   boxShadow: '0 6px 24px rgba(0,0,0,0.11)',
 });
 
-const PhotoGrid = () => (
-  <div style={{
-    position: 'relative',
-    width: 520,
-    height: 400,
-    flexShrink: 0,
-  }}>
+const PhotoGrid = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: '-100px' }); // once: false for every time
 
-    <motion.img
-      src="/training.jpg"         
-      alt="Hero image 1"
-      initial={{ opacity: 0, y: -90 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.82, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-      style={{ ...base(220, 180), left: 0, top: 0 }}
-    />
+  return (
+    <div ref={ref} style={{
+      position: 'relative',
+      width: 520,
+      height: 400,
+      flexShrink: 0,
+    }}>
 
-   <motion.img
-      src="/internship.png"         
-      alt="Hero image 2"
-      initial={{ opacity: 0, x: 90 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.82, delay: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-      style={{ ...base(220, 280), left: 230, top: 0 }}
-    />
+      <motion.img
+        src="/training.jpg"         
+        alt="Hero image 1"
+        initial={{ opacity: 0, y: -90 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -90 }}
+        transition={{ duration: 0.82, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+        style={{ ...base(220, 180), left: 0, top: 0 }}
+      />
 
-    <motion.img
-      src="/jobplacement.jpg"        
-      alt="Hero image 3"
-      initial={{ opacity: 0, x: -90 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.82, delay: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-      style={{ ...base(220, 260), left: 0, top: 190 }}
-    />
+      <motion.img
+        src="/internship.png"         
+        alt="Hero image 2"
+        initial={{ opacity: 0, x: 90 }}
+        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 90 }}
+        transition={{ duration: 0.82, delay: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+        style={{ ...base(220, 280), left: 230, top: 0 }}
+      />
 
-   <motion.img
-      src="/study-abroad.jpg"         
-      alt="Hero image 4"
-      initial={{ opacity: 0, y: 90 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.82, delay: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
-      style={{ ...base(220, 160), left: 230, top: 288 }}
-    />
-  </div>
-);
+      <motion.img
+        src="/jobplacement.jpg"        
+        alt="Hero image 3"
+        initial={{ opacity: 0, x: -90 }}
+        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -90 }}
+        transition={{ duration: 0.82, delay: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
+        style={{ ...base(220, 260), left: 0, top: 190 }}
+      />
+
+      <motion.img
+        src="/study-abroad.jpg"         
+        alt="Hero image 4"
+        initial={{ opacity: 0, y: 90 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 90 }}
+        transition={{ duration: 0.82, delay: 1.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+        style={{ ...base(220, 160), left: 230, top: 288 }}
+      />
+    </div>
+  );
+};
 
 const HeroSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef(null);
+  const inView = useInView(sectionRef, { once: false, margin: '-100px' });
 
   useEffect(() => {
     if (videoRef.current) {
@@ -221,7 +227,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section style={{
+    <section ref={sectionRef} style={{
       // background: 'transparent',  // REMOVED the gradient - was covering the video
       minHeight: '100vh',
       fontFamily: "'Inter', 'DM Sans', system-ui, sans-serif",
@@ -302,9 +308,9 @@ const HeroSection = () => {
         {/* ── LEFT CONTENT — UNCHANGED ── */}
         <div style={{ flex: '0 0 520px', zIndex: 3 }}>
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, y: 60 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+            transition={{ duration: 0.8, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
               fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: 36,
@@ -320,9 +326,9 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
               fontSize: 14,
               color: '#64748b',
@@ -335,9 +341,9 @@ const HeroSection = () => {
           </motion.p>
 
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
             whileHover={{ scale: 1.04, x: 4 }}
             whileTap={{ scale: 0.97 }}
             style={{
@@ -361,11 +367,11 @@ const HeroSection = () => {
           </motion.button>
         </div>
 
-        {/* ── RIGHT: 2×2 photo grid — ONLY THIS CHANGED ── */}
+        {/* ── RIGHT: 2×2 photo grid ── */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.3, delay: 0 }}
           style={{
             flex: 1,
             display: 'flex',

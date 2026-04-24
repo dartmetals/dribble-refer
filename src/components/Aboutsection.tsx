@@ -153,16 +153,16 @@ const YouTubeVideo = () => {
 
 const WebsiteFeaturesSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' }); // Changed to false for every time
   const [openId, setOpenId] = useState<string | null>('training');
 
   return (
-    <section style={{
+    <section ref={ref} style={{
       background: '#f0f2ff',
       padding: '100px 48px',
       fontFamily: "'Inter', system-ui, sans-serif",
     }}>
-      <div ref={ref} style={{
+      <div style={{
         maxWidth: 1200, margin: '0 auto',
         display: 'grid', gridTemplateColumns: '1fr 1fr',
         gap: 60, alignItems: 'center',
@@ -171,26 +171,36 @@ const WebsiteFeaturesSection = () => {
         {/* LEFT: Content slides in from LEFT */}
         <motion.div
           initial={{ opacity: 0, x: -70 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
+          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -70 }}
+          transition={{ duration: 0.85, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <h2 style={{
-            fontSize: 40, fontWeight: 800,
-            color: '#0f172a', letterSpacing: '-0.03em',
-            lineHeight: 1.2, marginBottom: 16,
-          }}>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            style={{
+              fontSize: 40, fontWeight: 800,
+              color: '#0f172a', letterSpacing: '-0.03em',
+              lineHeight: 1.2, marginBottom: 16,
+            }}
+          >
             About Data Artisans
-          </h2>
+          </motion.h2>
           
-          <p style={{
-            fontSize: 15,
-            color: '#64748b',
-            lineHeight: 1.6,
-            marginBottom: 32,
-          }}>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            style={{
+              fontSize: 15,
+              color: '#64748b',
+              lineHeight: 1.6,
+              marginBottom: 32,
+            }}
+          >
             We bridge the gap between ambition and industry by providing world-class training, 
             guaranteed placements, and global education pathways tailored for the UK market.
-          </p>
+          </motion.p>
 
           {/* Accordion */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
@@ -202,8 +212,8 @@ const WebsiteFeaturesSection = () => {
                 {/* Row */}
                 <motion.div
                   initial={{ opacity: 0, x: -40 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
+                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+                  transition={{ duration: 0.6, delay: 0.4 + i * 0.12 }}
                   onClick={() => setOpenId(openId === f.id ? null : f.id)}
                   style={{
                     display: 'flex', alignItems: 'center',
@@ -259,8 +269,8 @@ const WebsiteFeaturesSection = () => {
         {/* RIGHT: YouTube Thumbnail with Play Button */}
         <motion.div
           initial={{ opacity: 0, x: 80 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 80 }}
+          transition={{ duration: 0.85, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           style={{ display: 'flex', justifyContent: 'center' }}
         >
           <YouTubeVideo />

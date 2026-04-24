@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 
 const SolutionsSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const inView = useInView(ref, { once: false, margin: '-100px' });
 
   return (
     <section style={{
@@ -20,8 +20,8 @@ const SolutionsSection = () => {
         {/* LEFT: Internship Image from public folder */}
         <motion.div
           initial={{ opacity: 0, x: -80 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -80 }}
+          transition={{ duration: 0.85, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -42,47 +42,58 @@ const SolutionsSection = () => {
         </motion.div>
 
         {/* RIGHT: Text content */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <h2 style={{
-            fontSize: 40, fontWeight: 800,
-            color: '#0f172a', letterSpacing: '-0.03em',
-            lineHeight: 1.2, marginBottom: 24,
-          }}>
+        <div>
+          <motion.h2
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{
+              fontSize: 40, fontWeight: 800,
+              color: '#0f172a', letterSpacing: '-0.03em',
+              lineHeight: 1.2, marginBottom: 24,
+            }}
+          >
             Internship That Boosts Your Career
-          </h2>
+          </motion.h2>
           
           {/* Paragraph 1 */}
-          <p style={{ 
-            fontSize: 13.5, 
-            color: '#475569', 
-            lineHeight: 1.6, 
-            marginBottom: 18 
-          }}>
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ 
+              fontSize: 13.5, 
+              color: '#475569', 
+              lineHeight: 1.6, 
+              marginBottom: 18 
+            }}
+          >
             Along with our specialized training programs, we provide hands-on internships that give you 
             real-world experience in your chosen field. Our internships are designed to bridge the gap 
             between academic knowledge and practical industry requirements, ensuring you're job-ready 
             from day one. You'll work on live projects, collaborate with industry experts, and build 
             a professional portfolio that showcases your skills to potential employers.
-          </p>
+          </motion.p>
           
           {/* Paragraph 2 */}
-          <p style={{ 
-            fontSize: 13.5, 
-            color: '#475569', 
-            lineHeight: 1.6 
-          }}>
+          <motion.p 
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ 
+              fontSize: 13.5, 
+              color: '#475569', 
+              lineHeight: 1.6 
+            }}
+          >
             During your internship, you'll get the opportunity to work on meaningful projects that 
             have real business impact. Each intern is assigned a dedicated mentor who guides you 
             through project development, code reviews, and best practices. By the end of the internship, 
             you'll have completed at least 2-3 full-scale projects that you can proudly add to your 
             resume and portfolio. This practical experience is invaluable and will give you a significant 
             advantage in the competitive UK job market.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
       </div>
     </section>
   );

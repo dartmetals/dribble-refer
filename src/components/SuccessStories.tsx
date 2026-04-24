@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 
 const ActNowSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: false, margin: '-80px' }); // Changed to once: false for every time
   // const [email, setEmail] = useState('');
   // const [submitted, setSubmitted] = useState(false);
 
@@ -24,7 +24,7 @@ const ActNowSection = () => {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 48, scale: 0.97 }}
-          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 48, scale: 0.97 }}
           transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
           style={{
             background: 'linear-gradient(135deg, #5b63f8 0%, #6366f1 50%, #7c3aed 100%)',
@@ -63,11 +63,11 @@ const ActNowSection = () => {
             filter: 'blur(1px)',
           }} />
 
-          {/* Heading */}
+          {/* Heading - 1st animation */}
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            transition={{ duration: 0.7, delay: 0 }}
             style={{
               fontSize: 38, fontWeight: 800,
               color: '#fff', textAlign: 'center',
@@ -78,10 +78,10 @@ const ActNowSection = () => {
             Ready to Launch Your Career?
           </motion.h2>
 
-          {/* Paragraph */}
+          {/* Paragraph - 2nd animation */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.65, delay: 0.35 }}
             style={{
               fontSize: 16,
@@ -98,11 +98,11 @@ const ActNowSection = () => {
             internships, and job placement support. Your journey to success starts here.
           </motion.p>
 
-          {/* Button */}
+          {/* Button - 3rd animation */}
           <motion.button
             initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.45 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.65, delay: 0.7 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => window.location.href = '/contact'}

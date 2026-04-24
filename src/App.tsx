@@ -1,5 +1,5 @@
 import WebsiteFeaturesSection from "./components/Aboutsection";
-import FooterSection from "./components/FooterSection";
+import Footer from "./components/FooterSection";
 import Header from "./components/Header";
 import HeroSection from "./components/Herosection";
 import SolutionsSection from "./components/InternshipSection";
@@ -28,7 +28,7 @@ const App = () => {
       <SpeedyDigitalSection />
       <WebsiteFeaturesSection />
       <ActNowSection />
-      <FooterSection />
+      <Footer/>
     </>
   );
 };

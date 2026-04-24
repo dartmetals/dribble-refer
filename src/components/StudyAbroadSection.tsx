@@ -107,10 +107,10 @@ const cards: CardData[] = [
 
 const SpeedyDigitalSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: false, margin: '-80px' }); // Changed to once: false
 
   return (
-    <section style={{
+    <section ref={ref} style={{
       background: '#f0f2ff',
       padding: '100px 48px',
       fontFamily: "'Inter', system-ui, sans-serif",
@@ -119,10 +119,9 @@ const SpeedyDigitalSection = () => {
 
         {/* Heading */}
         <motion.h2
-          ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.7, delay: 0 }}
           style={{
             fontSize: 44, fontWeight: 800,
             color: '#0f172a', letterSpacing: '-0.03em',
@@ -136,8 +135,8 @@ const SpeedyDigitalSection = () => {
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
           style={{
             fontSize: 16,
             color: '#64748b',
@@ -151,16 +150,16 @@ const SpeedyDigitalSection = () => {
           Our dedicated team guides you every step of the way.
         </motion.p>
 
-        {/* Cards — appear one by one with stagger */}
+        {/* Cards — appear one after another */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24 }}>
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
               initial={{ opacity: 0, y: 60, scale: 0.94 }}
-              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.94 }}
               transition={{
                 duration: 0.65,
-                delay: 0.2 + i * 0.22,
+                delay: 0.6 + i * 0.25,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               whileHover={{ y: -8, transition: { duration: 0.25 } }}
@@ -226,8 +225,8 @@ const SpeedyDigitalSection = () => {
         {/* Additional Support Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.8 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.7, delay: 1.4 }}
           style={{
             marginTop: 60,
             padding: '32px 40px',

@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 
 const GrowBusinessSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: false, margin: '-80px' }); // Changed to once: false
 
   return (
     <section style={{
@@ -15,7 +15,7 @@ const GrowBusinessSection = () => {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50, scale: 0.97 }}
-          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.97 }}
           transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
           style={{
             background: 'linear-gradient(135deg, #6366f1 0%, #5b63f8 40%, #7c3aed 100%)',
@@ -79,11 +79,11 @@ const GrowBusinessSection = () => {
             </div>
           </div>
 
-          {/* Title Text */}
+          {/* Title Text - Comes first */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.35 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0 }}
             style={{
               fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: 28, fontWeight: 700,
@@ -99,11 +99,11 @@ const GrowBusinessSection = () => {
             Comprehensive Job Placement Support
           </motion.p>
 
-          {/* Paragraph inside the blur border radius card */}
+          {/* Paragraph inside the blur border radius card - Comes second */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.45 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
             style={{
               fontSize: 15,
               color: 'rgba(255,255,255,0.9)',
