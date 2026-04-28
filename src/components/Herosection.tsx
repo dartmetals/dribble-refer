@@ -162,9 +162,10 @@ const base = (w: number, h: number) => ({
   boxShadow: '0 6px 24px rgba(0,0,0,0.11)',
   willChange: 'transform, opacity',
   backfaceVisibility: 'hidden' as const,
+  opacity: 0, // Start completely invisible
 });
 
-// CSS keyframe animations for smooth image entries
+// CSS keyframe animations for smooth image entries - SLOWER VERSION
 const imageAnimations = `
   @keyframes slideFromTop {
     0% {
@@ -211,19 +212,19 @@ const imageAnimations = `
   }
 
   .animate-image-1 {
-    animation: slideFromTop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    animation: slideFromTop 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
   }
 
   .animate-image-2 {
-    animation: slideFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+    animation: slideFromRight 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards;
   }
 
   .animate-image-3 {
-    animation: slideFromLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    animation: slideFromLeft 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards;
   }
 
   .animate-image-4 {
-    animation: slideFromBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+    animation: slideFromBottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s forwards;
   }
 
   /* Initial positions - images start at their coming from positions */
@@ -252,13 +253,17 @@ const PhotoGrid = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: false, margin: '-100px' });
   const [animationKey, setAnimationKey] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (inView) {
+    if (inView && !hasAnimated) {
       // Reset animation by toggling key
       setAnimationKey(prev => prev + 1);
+      setHasAnimated(true);
+    } else if (!inView) {
+      setHasAnimated(false);
     }
-  }, [inView]);
+  }, [inView, hasAnimated]);
 
   // Inject CSS keyframes
   useEffect(() => {
@@ -411,7 +416,7 @@ const HeroSection = () => {
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.6, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
               fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: 36,
@@ -429,7 +434,7 @@ const HeroSection = () => {
           <motion.p
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.9, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
               fontSize: 14,
               color: '#64748b',
@@ -444,7 +449,7 @@ const HeroSection = () => {
           <motion.button
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             whileHover={{ scale: 1.03, x: 3 }}
             whileTap={{ scale: 0.98 }}
             style={{
@@ -472,7 +477,7 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.2, delay: 0 }}
+          transition={{ duration: 0.4, delay: 0 }}
           style={{
             flex: 1,
             display: 'flex',
