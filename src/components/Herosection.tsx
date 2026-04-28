@@ -148,7 +148,7 @@
 
 
 import { motion, useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /* Shared base styles for every image */
 const base = (w: number, h: number) => ({
@@ -160,11 +160,115 @@ const base = (w: number, h: number) => ({
   display: 'block' as const,
   background: '#cbd5e1',           /* grey placeholder until real image loads */
   boxShadow: '0 6px 24px rgba(0,0,0,0.11)',
+  willChange: 'transform, opacity',
+  backfaceVisibility: 'hidden' as const,
 });
+
+// CSS keyframe animations for smooth image entries
+const imageAnimations = `
+  @keyframes slideFromTop {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -90px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes slideFromRight {
+    0% {
+      opacity: 0;
+      transform: translate3d(90px, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes slideFromLeft {
+    0% {
+      opacity: 0;
+      transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes slideFromBottom {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 90px, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-image-1 {
+    animation: slideFromTop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  }
+
+  .animate-image-2 {
+    animation: slideFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+  }
+
+  .animate-image-3 {
+    animation: slideFromLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  }
+
+  .animate-image-4 {
+    animation: slideFromBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+  }
+
+  /* Initial positions - images start at their coming from positions */
+  .image-start-1 {
+    opacity: 0;
+    transform: translate3d(0, -90px, 0);
+  }
+  
+  .image-start-2 {
+    opacity: 0;
+    transform: translate3d(90px, 0, 0);
+  }
+  
+  .image-start-3 {
+    opacity: 0;
+    transform: translate3d(-90px, 0, 0);
+  }
+  
+  .image-start-4 {
+    opacity: 0;
+    transform: translate3d(0, 90px, 0);
+  }
+`;
 
 const PhotoGrid = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: false, margin: '-100px' }); // once: false for every time
+  const inView = useInView(ref, { once: false, margin: '-100px' });
+  const [animationKey, setAnimationKey] = useState(0);
+
+  useEffect(() => {
+    if (inView) {
+      // Reset animation by toggling key
+      setAnimationKey(prev => prev + 1);
+    }
+  }, [inView]);
+
+  // Inject CSS keyframes
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = imageAnimations;
+    document.head.appendChild(styleSheet);
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
 
   return (
     <div ref={ref} style={{
@@ -172,41 +276,38 @@ const PhotoGrid = () => {
       width: 520,
       height: 400,
       flexShrink: 0,
+      transform: 'translate3d(0, 0, 0)', // Force hardware acceleration
     }}>
 
-      <motion.img
+      <img
+        key={`img1-${animationKey}`}
         src="/training.jpg"         
         alt="Hero image 1"
-        initial={{ opacity: 0, y: -90 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -90 }}
-        transition={{ duration: 0.82, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className={inView ? 'animate-image-1' : 'image-start-1'}
         style={{ ...base(220, 180), left: 0, top: 0 }}
       />
 
-      <motion.img
+      <img
+        key={`img2-${animationKey}`}
         src="/internship.png"         
         alt="Hero image 2"
-        initial={{ opacity: 0, x: 90 }}
-        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 90 }}
-        transition={{ duration: 0.82, delay: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className={inView ? 'animate-image-2' : 'image-start-2'}
         style={{ ...base(220, 280), left: 230, top: 0 }}
       />
 
-      <motion.img
+      <img
+        key={`img3-${animationKey}`}
         src="/jobplacement.jpg"        
         alt="Hero image 3"
-        initial={{ opacity: 0, x: -90 }}
-        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -90 }}
-        transition={{ duration: 0.82, delay: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className={inView ? 'animate-image-3' : 'image-start-3'}
         style={{ ...base(220, 260), left: 0, top: 190 }}
       />
 
-      <motion.img
+      <img
+        key={`img4-${animationKey}`}
         src="/study-abroad.jpg"         
         alt="Hero image 4"
-        initial={{ opacity: 0, y: 90 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 90 }}
-        transition={{ duration: 0.82, delay: 1.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className={inView ? 'animate-image-4' : 'image-start-4'}
         style={{ ...base(220, 160), left: 230, top: 288 }}
       />
     </div>
@@ -228,11 +329,13 @@ const HeroSection = () => {
 
   return (
     <section ref={sectionRef} style={{
-      // background: 'transparent',  // REMOVED the gradient - was covering the video
       minHeight: '100vh',
       fontFamily: "'Inter', 'DM Sans', system-ui, sans-serif",
       position: 'relative',
       overflow: 'hidden',
+      WebkitFontSmoothing: 'antialiased',
+      MozOsxFontSmoothing: 'grayscale',
+      transform: 'translate3d(0, 0, 0)',
     }}>
       {/* Background Video - COMMENTED */}
       {/* <video
@@ -249,13 +352,11 @@ const HeroSection = () => {
           height: '100%',
           objectFit: 'cover',
           zIndex: 0,
-          opacity: 0.3,  // Increased opacity to make video more visible
+          opacity: 0.3,
         }}
       >
         <source src="/bg-herovideo1.mp4" type="video/mp4" />
-        {/* Fallback for browsers that don't support video */}
-        {/* Your browser does not support the video tag. */}
-      {/* </video>  */}
+      </video> */}
 
       {/* Background Image - ADDED */}
       <img 
@@ -270,29 +371,28 @@ const HeroSection = () => {
           objectFit: 'cover',
           zIndex: 0,
           opacity: 0.3,
+          transform: 'translate3d(0, 0, 0)',
         }}
       />
 
-      {/* Dark overlay to ensure text readability - FIXED zIndex */}
+      {/* Dark overlay to ensure text readability */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
-        //  background: 'rgba(238, 240, 255, 0.7)',  // Increased opacity for better text readability
-        zIndex: 1,  // Changed from 0 to 1
+        zIndex: 1,
       }} />
 
-      {/* Subtle grid pattern overlay — UNCHANGED */}
+      {/* Subtle grid pattern overlay */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        // backgroundImage: 'linear-gradient(rgba(100,120,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(100,120,255,0.04) 1px, transparent 1px)',
         backgroundSize: '40px 40px',
-        zIndex: 2,  // Changed from 1 to 2
+        zIndex: 2,
       }} />
 
-      {/* ── HERO BODY — UNCHANGED ── */}
+      {/* ── HERO BODY ── */}
       <div style={{
         maxWidth: 1400,
         margin: '0 auto',
@@ -302,15 +402,16 @@ const HeroSection = () => {
         alignItems: 'center',
         gap: 60,
         position: 'relative',
-        zIndex: 3,  // Changed from 2 to 3
+        zIndex: 3,
+        transform: 'translate3d(0, 0, 0)',
       }}>
 
-        {/* ── LEFT CONTENT — UNCHANGED ── */}
+        {/* ── LEFT CONTENT ── */}
         <div style={{ flex: '0 0 520px', zIndex: 3 }}>
           <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-            transition={{ duration: 0.8, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.6, delay: 0, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: 36,
@@ -326,9 +427,9 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontSize: 14,
               color: '#64748b',
@@ -341,11 +442,11 @@ const HeroSection = () => {
           </motion.p>
 
           <motion.button
-            initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            whileHover={{ scale: 1.04, x: 4 }}
-            whileTap={{ scale: 0.97 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.03, x: 3 }}
+            whileTap={{ scale: 0.98 }}
             style={{
               background: '#5b63f8',
               border: 'none',
@@ -371,7 +472,7 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.3, delay: 0 }}
+          transition={{ duration: 0.2, delay: 0 }}
           style={{
             flex: 1,
             display: 'flex',
