@@ -322,7 +322,7 @@ const HeroSection = () => {
               maxWidth: '100%',
             }}
           >
-            Empowering the Next Generation of IT Excellence.
+            Empowering the Next Generation of IT Excellence
           </motion.h1>
 
           <motion.p
