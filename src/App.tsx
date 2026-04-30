@@ -1,36 +1,28 @@
-import WebsiteFeaturesSection from "./components/Aboutsection";
-import Footer from "./components/FooterSection";
-import Header from "./components/Header";
-import HeroSection from "./components/Herosection";
-import SolutionsSection from "./components/InternshipSection";
-import GrowBusinessSection from "./components/JobPlacementSection";
-import SpeedyDigitalSection from "./components/StudyAbroadSection";
-import ActNowSection from "./components/SuccessStories";
-import TrustedBrandsSection from "./components/TrainingSection";
+import React from 'react'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import About from './components/About'
+import WhoWeServe from './components/WhoWeServe'
+import Stats from './components/Stats'
+import WhyChooseUs from './components/WhyChooseUs'
+import Testimonials from './components/Testimonials'
+import Footer from './components/Footer'
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; background: #fff; }
-        input::placeholder { color: rgba(255,255,255,0.55); }
-        a { cursor: pointer; }
-      `}</style>
+    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <WhoWeServe />
+        <Stats />
+        <WhyChooseUs />
+        <Testimonials />
+      </main>
+      <Footer />
+    </div>
+  )
+}
 
-<Header/>
-      <HeroSection />
-      <TrustedBrandsSection />
-      <SolutionsSection />
-      <GrowBusinessSection />
-      <SpeedyDigitalSection />
-      <WebsiteFeaturesSection />
-      <ActNowSection />
-      <Footer/>
-    </>
-  );
-};
-
-export default App;
+export default App

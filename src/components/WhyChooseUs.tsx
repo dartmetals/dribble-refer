@@ -1,91 +1,195 @@
-const WhyChooseUs = () => {
-  const features = [
-    {
-      icon: "🎓",
-      title: "Expert Trainers",
-      description: "Learn from industry professionals with years of hands-on experience in top tech companies."
-    },
-    {
-      icon: "📊",
-      title: "Practical Approach",
-      description: "Real-world projects and hands-on training to prepare you for actual industry challenges."
-    },
-    {
-      icon: "🎯",
-      title: "Placement Guarantee",
-      description: "Dedicated placement support with connections to 500+ top UK companies."
-    },
-    {
-      icon: "💡",
-      title: "24/7 Support",
-      description: "Round-the-clock mentorship and support throughout your learning journey."
-    }
-  ];
+import React from 'react'
 
+const WhyChooseUs: React.FC = () => {
   return (
-    <section className="w-full py-5 px-4 sm:px-6 lg:px-8 bg-gray-900 flex justify-center">
-      <div className="w-[80%] mt-8">
-        {/* Tagline */}
-        <div className="text-left mb-">
-          <h4 className="text-[#00D4FF] font-semibold uppercase tracking-wider text-sm md:text-base">
-            Why Choose Us
-          </h4>
-          {/* Title - 2 lines */}
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8">
-              We Are Here To
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] to-[#0066FF]">
-                Grow Your Career
-              </span>
-            </h2>
+    <section
+      id="why"
+      style={{
+        padding: '80px 0',
+        backgroundColor: '#f9f9f9',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 40px',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '70px',
+          alignItems: 'center',
+        }}
+      >
+        {/* ── Left: Image ── */}
+        <div style={{ position: 'relative' }}>
+          {/* Decorative dot-grid background */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '-24px',
+              left: '-24px',
+              width: '160px',
+              height: '160px',
+              backgroundImage:
+                'radial-gradient(circle, #e31e24 1.5px, transparent 1.5px)',
+              backgroundSize: '14px 14px',
+              opacity: 0.35,
+              zIndex: 0,
+            }}
+          />
+
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 1,
+              borderRadius: '4px',
+              overflow: 'hidden',
+              height: '420px',
+              background: 'linear-gradient(135deg, #2c2c2c 0%, #444 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {/* Placeholder person illustration */}
+            <svg width="200" height="300" viewBox="0 0 200 320" fill="none">
+              {/* Background suit */}
+              <rect x="40" y="130" width="120" height="180" rx="10" fill="#2a2a4a" />
+              {/* Shirt / tie area */}
+              <rect x="80" y="130" width="40" height="180" fill="#1a1a3a" />
+              <polygon points="95,140 100,180 105,140" fill="#e31e24" />
+              {/* Head */}
+              <circle cx="100" cy="90" r="45" fill="#d4a876" />
+              {/* Hair */}
+              <ellipse cx="100" cy="52" rx="45" ry="20" fill="#2a1a0a" />
+              {/* Arms */}
+              <rect x="10" y="135" width="32" height="100" rx="14" fill="#2a2a4a" />
+              <rect x="158" y="135" width="32" height="100" rx="14" fill="#2a2a4a" />
+              {/* Hands */}
+              <ellipse cx="26" cy="240" rx="16" ry="12" fill="#d4a876" />
+              <ellipse cx="174" cy="240" rx="16" ry="12" fill="#d4a876" />
+              {/* Lapels */}
+              <polygon points="80,130 100,160 60,200" fill="#1a1a2e" opacity="0.7" />
+              <polygon points="120,130 100,160 140,200" fill="#1a1a2e" opacity="0.7" />
+            </svg>
+          </div>
+
+          {/* Decorative red accent bar */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '24px',
+              left: '-8px',
+              width: '6px',
+              height: '80px',
+              backgroundColor: '#e31e24',
+              zIndex: 2,
+            }}
+          />
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-left">
-          {/* Left Side - Image */}
-          <div className="relative">
-            
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src="/why-choose-us.jpg" 
-                alt="Why Choose Data Artisans"
-                className="w-full h-auto object-cover"
-              />
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent"></div>
-            </div>
-            
-            {/* Decorative Elements */}
-            <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#00D4FF]/10 rounded-full blur-2xl"></div>
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[#0066FF]/10 rounded-full blur-2xl"></div>
+        {/* ── Right: Content ── */}
+        <div>
+          {/* Label */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              marginBottom: '16px',
+            }}
+          >
+            <span
+              style={{
+                color: '#e31e24',
+                fontSize: '12px',
+                fontWeight: '600',
+                letterSpacing: '2px',
+                textTransform: 'uppercase',
+              }}
+            >
+              WHY CHOOSE US
+            </span>
+            <span
+              style={{
+                display: 'block',
+                width: '50px',
+                height: '2px',
+                backgroundColor: '#e31e24',
+              }}
+            />
           </div>
 
-          {/* Right Side - Content */}
-          <div>
-            {/* Features Grid - 2 rows x 2 columns */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-4 group">
-                  {/* Icon - White, no color, no border radius */}
-                  <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {feature.icon}
-                  </div>
-                  {/* Content */}
-                  <div>
-                    <h3 className="text-white font-bold text-lg mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <h2
+            style={{
+              fontSize: 'clamp(22px, 3vw, 32px)',
+              fontWeight: '700',
+              color: '#1a1a1a',
+              lineHeight: 1.35,
+              marginBottom: '22px',
+            }}
+          >
+            Simplify Talent Acquisition.<br />
+            Amplify Business.
+          </h2>
+
+          <p
+            style={{
+              fontSize: '14px',
+              color: '#666',
+              lineHeight: 1.9,
+              marginBottom: '36px',
+            }}
+          >
+            Harness the right talent, at the optimal time and cost, for a
+            transformative impact on your business. Experience our tech-enabled
+            recruitment, seamless onboarding, and strategic staffing, driving
+            cost savings through attrition reduction and enhanced workforce
+            performance. Partner with us today.
+          </p>
+
+          <a
+            href="#about"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#e31e24',
+              fontSize: '12.5px',
+              fontWeight: '700',
+              padding: '11px 28px',
+              border: '2px solid #e31e24',
+              borderRadius: '3px',
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              transition: 'all 0.25s ease',
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement
+              el.style.backgroundColor = '#e31e24'
+              el.style.color = '#fff'
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement
+              el.style.backgroundColor = 'transparent'
+              el.style.color = '#e31e24'
+            }}
+          >
+            ABOUT US
+          </a>
         </div>
       </div>
-    </section>
-  );
-};
 
-export default WhyChooseUs;
+      <style>{`
+        @media (max-width: 900px) {
+          #why > div {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+        }
+      `}</style>
+    </section>
+  )
+}
+
+export default WhyChooseUs
